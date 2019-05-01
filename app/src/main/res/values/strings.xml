@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">Forum Thread Example</string>
+    <string name="app_name">Forum Example</string>
     <string name="input_placeholder">Write a message</string>
 </resources>
