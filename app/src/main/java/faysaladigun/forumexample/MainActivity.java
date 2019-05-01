@@ -137,6 +137,7 @@ public class MainActivity extends AppCompatActivity implements
             @Override
             public void run() {
                 messageAdapter.add(guestMessage);
+                messagesView.setSelection(messagesView.getCount() - 1);
             }
         }, 5000);
 
@@ -146,12 +147,11 @@ public class MainActivity extends AppCompatActivity implements
         String message = editText.getText().toString();
         if (message.length() > 0) {
             scaledrone.publish("FaysalChatRoom", message);
+            messageAdapter.add(new Message(message, me, true));
             editText.getText().clear();
 
-            Toast.makeText(this, "Chat feature coming soon; CPU will send test message momentarily.",
-                    Toast.LENGTH_LONG).show();
-
             sendGuestMesage();
+            messagesView.setSelection(messagesView.getCount() - 1);
         }
     }
 }
