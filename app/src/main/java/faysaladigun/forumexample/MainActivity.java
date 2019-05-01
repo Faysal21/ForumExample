@@ -1,12 +1,14 @@
 package faysaladigun.forumexample;
 
-import android.os.Handler;
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -30,9 +32,6 @@ public class MainActivity extends AppCompatActivity implements
     private Scaledrone scaledrone;
     private MessageAdapter messageAdapter;
     private ListView messagesView;
-
-    private MemberData me = new MemberData("Me", getRandomColor()),
-                       guest = new MemberData("Guest", getRandomColor());
 
     private String getRandomName() {
         String[] adjs = {"autumn", "hidden", "bitter", "misty", "silent", "empty", "dry", "dark", "summer", "icy", "delicate", "quiet", "white", "cool", "spring", "winter", "patient", "twilight", "dawn", "crimson", "wispy", "weathered", "blue", "billowing", "broken", "cold", "damp", "falling", "frosty", "green", "long", "late", "lingering", "bold", "little", "morning", "muddy", "old", "red", "rough", "still", "small", "sparkling", "throbbing", "shy", "wandering", "withered", "wild", "black", "young", "holy", "solitary", "fragrant", "aged", "snowy", "proud", "floral", "restless", "divine", "polished", "ancient", "purple", "lively", "nameless"};
@@ -61,7 +60,6 @@ public class MainActivity extends AppCompatActivity implements
         editText = (EditText) findViewById(R.id.editText);
 
         messageAdapter = new MessageAdapter(this);
-        //localMessageAdapter = new ListAdapter
         messagesView = (ListView) findViewById(R.id.messages_view);
         messagesView.setAdapter(messageAdapter);
 
@@ -130,28 +128,26 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
-    public void sendGuestMesage() {
-        final Message guestMessage = new Message(getRandomName(), guest, false);
-
-        new Handler().postDelayed(new Runnable(){
-            @Override
-            public void run() {
-                messageAdapter.add(guestMessage);
-            }
-        }, 5000);
-
-    }
-
     public void sendMessage(View view) {
-        String message = editText.getText().toString();
+        final String message_sent = editText.getText().toString();
         if (message.length() > 0) {
             scaledrone.publish("FaysalChatRoom", message);
             editText.getText().clear();
 
-            Toast.makeText(this, "Chat feature coming soon; CPU will send test message momentarily.",
-                    Toast.LENGTH_LONG).show();
+            ImageButton sendMessage = findViewById(R.id.sendButton);
+            sendMessage.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    TextView message_body = findViewById(R.id.message_body);
+                    message_body.setText(message_sent);
+                }
+            });;
 
-            sendGuestMesage();
+
+
+
+
+
         }
     }
 }
