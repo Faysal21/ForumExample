@@ -29,9 +29,10 @@
             android:layout_weight="2"
             android:ems="10"
             android:hint="@string/input_placeholder"
-            android:textColorHint="#FFF"
+            android:textColorHint="#AAA"
+            android:textColor="#FFF"
             android:inputType="text"
-            android:-paddingHorizontal="10dp"
+            android:paddingHorizontal="10dp"
             android:text="" />
 
         <ImageButton
